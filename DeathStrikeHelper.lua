@@ -10,6 +10,8 @@ local DOWN_ARROW = "|cFFFF0000-|r"   -- Red minus
 local DASH = "|cFFFFFF00=|r"         -- Yellow equals
 local DEATH_STRIKE_ID = 49998
 local DEATH_STRIKE_HEAL_ID = 45470
+local UPDATE_THROTTLE = 0.1  -- 100ms throttle
+local lastUpdate = 0
 
 -- Add after the addon creation
 DSH.defaults = {
@@ -187,6 +189,10 @@ end
 
 -- Function to update the display
 function DSH:UpdateDisplay()
+    local now = GetTime()
+    if now - lastUpdate < UPDATE_THROTTLE then return end
+    lastUpdate = now
+    
     local shouldCast, message = self:ShouldDeathStrike()
     
     -- Update icon saturation
