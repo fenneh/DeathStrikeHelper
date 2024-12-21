@@ -1,7 +1,7 @@
 ## Interface: 100200
 ## Title: Death Strike Helper
 ## Notes: Helps Blood Death Knights use Death Strike effectively
-## Author: Your Name
+## Author: fenneh
 ## Version: 1.0
 ## SavedVariables: DeathStrikeHelperDB
 ## Dependencies: Ace3
