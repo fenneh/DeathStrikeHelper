@@ -8,6 +8,8 @@ local mainFrame, icon, ratingText, healedText, overhealText, timingText, cooldow
 local UP_ARROW = "|cFF00FF00+|r"    -- Green plus
 local DOWN_ARROW = "|cFFFF0000-|r"   -- Red minus
 local DASH = "|cFFFFFF00=|r"         -- Yellow equals
+local DEATH_STRIKE_ID = 49998
+local DEATH_STRIKE_HEAL_ID = 45470
 
 -- Add after the addon creation
 DSH.defaults = {
@@ -227,17 +229,24 @@ local lastHealAmount = 0
 local maxHealingSeen = 0  -- We'll use this to calibrate our star rating
 
 function DSH:COMBAT_LOG_EVENT_UNFILTERED()
-    local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand, multistrike = CombatLogGetCurrentEventInfo()
+    -- Get only essential info first
+    local _, subevent, _, sourceGUID = CombatLogGetCurrentEventInfo()
     
+    -- Early exit if not player's action
     if sourceGUID ~= UnitGUID("player") then return end
     
-    if spellId == 49998 and subevent == "SPELL_CAST_SUCCESS" then 
-        local timeSinceLastDS = GetTime() - lastDeathStrikeTime
+    -- Early exit if not Death Strike related
+    if subevent ~= "SPELL_CAST_SUCCESS" and subevent ~= "SPELL_HEAL" then return end
+    
+    -- Only now get the full combat log info since we know we need it
+    local _, _, _, _, _, _, _, _, _, _, _, spellId, _, _, amount, overkill = CombatLogGetCurrentEventInfo()
+    
+    if spellId == DEATH_STRIKE_ID and subevent == "SPELL_CAST_SUCCESS" then 
         lastDeathStrikeTime = GetTime()
         cooldownFrame:SetCooldown(GetTime(), 5)
         damageTakenSince = 0
         
-    elseif spellId == 45470 and subevent == "SPELL_HEAL" then 
+    elseif spellId == DEATH_STRIKE_HEAL_ID and subevent == "SPELL_HEAL" then 
         overkill = overkill or 0
         local effectiveHealing = amount - overkill
         
