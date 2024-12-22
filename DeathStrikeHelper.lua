@@ -275,8 +275,13 @@ function DSH:COMBAT_LOG_EVENT_UNFILTERED()
             healedText:SetText("|cFF00FF00" .. FormatLargeNumber(effectiveHealing) .. "|r")
             healedText:Show()
         end
-        if self.db.profile.textVisibility.overhealing and overkill > 0 then
-            overhealText:SetText("|cFFFF0000" .. FormatLargeNumber(overkill) .. "|r")
+        if self.db.profile.textVisibility.overhealing then
+            -- Always update overhealing text when visible, even if 0
+            if overkill > 0 then
+                overhealText:SetText("|cFFFF0000" .. FormatLargeNumber(overkill) .. "|r")
+            else
+                overhealText:SetText("")
+            end
             overhealText:Show()
         end
         if self.db.profile.textVisibility.timing then
