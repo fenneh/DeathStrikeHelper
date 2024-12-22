@@ -194,6 +194,16 @@ function DSH:UpdateDisplay()
     lastUpdate = now
     
     local shouldCast, message = self:ShouldDeathStrike()
+    local runicPower = UnitPower("player", Enum.PowerType.RunicPower)
+    
+    -- Special case: Always show ready when RP > 105, regardless of cooldown
+    if runicPower >= 105 then
+        icon:SetDesaturated(false)
+        if cooldownFrame then
+            cooldownFrame:Clear()
+        end
+        return
+    end
     
     -- Update icon saturation
     if shouldCast then
@@ -318,10 +328,15 @@ function DSH:ShouldDeathStrike()
     if timeSinceLastDS < 5 then
         -- Use milliseconds if under 1 second remaining
         if remainingTime < 1 then
-            return false, string.format("%.1f", remainingTime)  -- Show one decimal place for sub-1 second
+            return false, string.format("%.1f", remainingTime)
         else
-            return false, string.format("%.1f", remainingTime)  -- Show one decimal place for >1 second
+            return false, string.format("%.1f", remainingTime)
         end
+    end
+    
+    -- Rule 0 (Highest Priority): Cast Death Strike when above 105 runic power
+    if runicPower >= 105 then
+        return true, "High RP (Cap)"
     end
     
     -- Rule 1: Cast Death Strike when above 80 runic power
@@ -360,6 +375,11 @@ function DSH:RateDeathStrike(healAmount, overhealing)
     local runicPower = UnitPower("player", Enum.PowerType.RunicPower)
     local healthPercent = UnitHealth("player") / UnitHealthMax("player") * 100
     
+    -- Special case: If RP was above 105, automatic 5 stars
+    if runicPower >= 105 then
+        return 5
+    end
+    
     -- Add stars based on healing efficiency
     if efficiency > 0.8 then
         stars = stars + 2
@@ -368,9 +388,7 @@ function DSH:RateDeathStrike(healAmount, overhealing)
     end
     
     -- Add stars based on timing
-    if runicPower > 110 then
-        -- No additional stars for wasting resources
-    elseif runicPower >= 80 or (healthPercent < 50 and runicPower >= 40) then
+    if runicPower >= 80 or (healthPercent < 50 and runicPower >= 40) then
         stars = stars + 2
     elseif runicPower >= 40 then
         stars = stars + 1
