@@ -13,10 +13,12 @@ A World of Warcraft addon that provides real-time feedback for Death Knight's De
 
 Screenshots showing the addon in action:
 
-![3-Star Death Strike Example](image-3star.png)
+![3-Star Death Strike Example](./Media/image-3star.png)
+
 *A 3-star Death Strike showing moderate healing efficiency (716.3k healing with some overhealing)*
 
-![5-Star Death Strike Example](image-5star.png)
+![5-Star Death Strike Example](./Media/image-5star.png)
+
 *A perfect 5-star Death Strike demonstrating optimal timing and healing efficiency (989.2k healing)*
 
 ## Installation
