@@ -6,50 +6,18 @@ A World of Warcraft addon that provides real-time feedback for Death Knight's De
 
 - Visual feedback for Death Strike healing and overhealing amounts
 - Timing indicator showing optimal usage moments
-- Star rating system (1-5 stars) based on:
-  - Healing efficiency (minimal overhealing)
-  - Timing (based on Runic Power and health conditions)
-- Customizable UI:
-  - Adjustable text size and positions
-  - Configurable colors and visibility
-  - Movable frame with lock option
-  - Toggle visibility of individual elements
+- Star rating system (1-5 stars) based on healing efficiency and timing
+- Customizable UI with adjustable elements and movable frame
 
-## Death Strike Logic
+## Media
 
-The addon helps optimize Death Strike usage based on several factors:
+Screenshots showing the addon in action:
 
-### Timing Recommendations
-- Shows a green plus (+) when it's optimal to use Death Strike:
-  - When Runic Power is at or above 80
-  - When health is below 50% and Runic Power is at least 40
-- Shows a red minus (-) when:
-  - Runic Power is above 110 (resource waste)
-  - Conditions for optimal usage aren't met
-- Shows a cooldown timer when Death Strike was recently used (5-second cooldown)
+![3-Star Death Strike Example](image-3star.png)
+*A 3-star Death Strike showing moderate healing efficiency (716.3k healing with some overhealing)*
 
-### Star Rating System
-
-The star rating (1-5 stars) is calculated based on two main factors:
-
-1. **Healing Efficiency** (Up to 2 bonus stars)
-   - +2 stars: Over 80% healing efficiency (less than 20% overhealing)
-   - +1 star: Over 60% healing efficiency (less than 40% overhealing)
-   - +0 stars: Below 60% healing efficiency
-
-2. **Timing** (Up to 2 bonus stars)
-   - +2 stars: Used at optimal Runic Power (80+ RP) or during emergency (< 50% HP and 40+ RP)
-   - +1 star: Used with adequate resources (40+ RP)
-   - +0 stars: Used with poor timing (> 110 RP or low RP)
-
-All ratings start at 1 star minimum and can gain up to 4 additional stars based on the above criteria.
-
-The star color indicates the overall rating:
-- 1 star: Red (Poor)
-- 2 stars: Orange (Fair)
-- 3 stars: Yellow (Good)
-- 4 stars: Light Green (Very Good)
-- 5 stars: Green (Excellent)
+![5-Star Death Strike Example](image-5star.png)
+*A perfect 5-star Death Strike demonstrating optimal timing and healing efficiency (989.2k healing)*
 
 ## Installation
 
@@ -60,11 +28,11 @@ The star color indicates the overall rating:
 
 ## Usage
 
-The addon will automatically track your Death Strike usage and provide feedback:
-- Green numbers show effective healing
-- Red numbers show overhealing
-- Plus/minus indicators show if the timing was optimal
-- Star rating shows overall effectiveness
+The addon automatically tracks your Death Strike usage and provides feedback:
+- 💚 Green numbers show effective healing
+- ❌ Red numbers show overhealing
+- ➕/➖ indicators show if the timing was optimal
+- ⭐ Star rating shows overall effectiveness
 
 ### Commands
 
@@ -79,12 +47,42 @@ Access the configuration panel through:
 - `/dsh config` command
 - Interface Options menu
 
-You can customize:
+Customize various elements including:
 - Icon and text sizes
 - Text positions and visibility
 - Frame size and appearance
 - Font settings
 - Background and border options
+
+## How It Works
+
+### Star Rating System
+
+The star rating (1-5 stars) is calculated based on:
+
+1. **Healing Efficiency** (Up to 2 bonus stars)
+   - +2 stars: Over 80% healing efficiency
+   - +1 star: Over 60% healing efficiency
+   - +0 stars: Below 60% healing efficiency
+
+2. **Timing** (Up to 2 bonus stars)
+   - +2 stars: Used at optimal Runic Power (80+ RP) or during emergency
+   - +1 star: Used with adequate resources (40+ RP)
+   - +0 stars: Used with poor timing
+
+Star colors indicate rating:
+- ⭐ Red (Poor)
+- ⭐⭐ Orange (Fair)
+- ⭐⭐⭐ Yellow (Good)
+- ⭐⭐⭐⭐ Light Green (Very Good)
+- ⭐⭐⭐⭐⭐ Green (Excellent)
+
+### Timing Recommendations
+
+The addon shows:
+- ➕ Green plus when optimal to use (80+ RP or health below 50% with 40+ RP)
+- ➖ Red minus when conditions aren't ideal
+- Cooldown timer after recent Death Strike use
 
 ## Requirements
 
