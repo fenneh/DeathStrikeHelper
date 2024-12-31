@@ -2,7 +2,7 @@
 ## Title: Death Strike Helper
 ## Notes: Provide feedback when using death strike
 ## Author: fenneh
-## Version: 1.0.3
+## Version: 1.0.4
 ## SavedVariables: DeathStrikeHelperDB
 ## Dependencies: Ace3
 
