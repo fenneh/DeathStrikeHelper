@@ -1,5 +1,14 @@
 local addonName, DSH = ...
+local _, class = UnitClass("player")
+local currentSpec = GetSpecialization()
+
+-- Only initialize if player is a Death Knight (spec check moved to OnEnable)
+if class ~= "DEATHKNIGHT" then
+    return
+end
+
 DSH = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceEvent-3.0")
+
 
 -- Variables to store frame references
 local mainFrame, icon, ratingText, healedText, overhealText, timingText, cooldownFrame
@@ -76,10 +85,24 @@ function DSH:OnEnable()
     C_Timer.After(1, function()
         self:CreateMainFrame()
         self:RefreshConfig()  -- Apply saved settings
-        self:RegisterEvent("UNIT_POWER_UPDATE")
-        self:RegisterEvent("UNIT_HEALTH")
-        self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-        self:RegisterEvent("PLAYER_TARGET_CHANGED")
+        
+        -- Check if we're in Blood spec
+        if GetSpecialization() == 1 then
+            self:RegisterEvent("UNIT_POWER_UPDATE")
+            self:RegisterEvent("UNIT_HEALTH")
+            self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+            self:RegisterEvent("PLAYER_TARGET_CHANGED")
+            if mainFrame then
+                mainFrame:Show()
+            end
+        else
+            if mainFrame then
+                mainFrame:Hide()
+            end
+        end
+        
+        -- Register for spec changes
+        self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
     end)
 end
 
@@ -1122,5 +1145,28 @@ function DSH:HideTestValues()
     end
     if ratingText and ratingText:GetFont() then
         ratingText:SetText("")
+    end
+end
+
+-- Add this new function to handle spec changes
+function DSH:PLAYER_SPECIALIZATION_CHANGED(event, unit)
+    if unit ~= "player" then return end
+    
+    if GetSpecialization() == 1 then  -- Blood spec
+        self:RegisterEvent("UNIT_POWER_UPDATE")
+        self:RegisterEvent("UNIT_HEALTH")
+        self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+        self:RegisterEvent("PLAYER_TARGET_CHANGED")
+        if mainFrame then
+            mainFrame:Show()
+        end
+    else  -- Not Blood spec
+        self:UnregisterEvent("UNIT_POWER_UPDATE")
+        self:UnregisterEvent("UNIT_HEALTH")
+        self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+        self:UnregisterEvent("PLAYER_TARGET_CHANGED")
+        if mainFrame then
+            mainFrame:Hide()
+        end
     end
 end
