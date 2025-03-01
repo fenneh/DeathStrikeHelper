@@ -1,10 +1,11 @@
-## Interface: 110007
+## Interface: 110100
 ## Title: Death Strike Helper
 ## Notes: Provide feedback when using death strike
 ## Author: fenneh
-## Version: 1.0.4
+## Version: 1.0.5
 ## SavedVariables: DeathStrikeHelperDB
 ## Dependencies: Ace3
+## OptionalDeps: LibSharedMedia-3.0
 
 # Main addon file
 DeathStrikeHelper.lua 

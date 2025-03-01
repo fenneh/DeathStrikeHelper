@@ -8,6 +8,9 @@ A World of Warcraft addon that provides real-time feedback for Death Knight's De
 - Timing indicator showing optimal usage moments
 - Star rating system (1-5 stars) based on healing efficiency and timing
 - Customizable UI with adjustable elements and movable frame
+- Sound alerts for optimal Death Strike moments (with combat-only option)
+- Debug mode for troubleshooting
+- Critical health detection that overrides cooldown when health is dangerously low
 
 ## Media
 
@@ -35,13 +38,17 @@ The addon automatically tracks your Death Strike usage and provides feedback:
 - ❌ Red numbers show overhealing
 - ➕/➖ indicators show if the timing was optimal
 - ⭐ Star rating shows overall effectiveness
+- 🔊 Sound alerts play when optimal conditions are met (only during combat)
 
 ### Commands
 
 - `/dsh` - Shows available commands
 - `/dsh config` - Opens the configuration panel
+- `/dsh sound` - Opens sound configuration directly
 - `/dsh test` - Shows test values to help with UI positioning
 - `/dsh reset` - Resets the max healing seen value
+- `/dsh debug` - Toggles debug mode for troubleshooting
+- `/dsh status` - Shows current health, runic power, and condition status
 
 ### Configuration
 
@@ -55,6 +62,8 @@ Customize various elements including:
 - Frame size and appearance
 - Font settings
 - Background and border options
+- Sound settings and conditions
+- Advanced options (debug mode)
 
 ## How It Works
 
@@ -84,12 +93,42 @@ Star colors indicate rating:
 The addon shows:
 - ➕ Green plus when optimal to use (80+ RP or health below 50% with 40+ RP)
 - ➖ Red minus when conditions aren't ideal
-- Cooldown timer after recent Death Strike use
+- Standard WoW cooldown timer and swipe animation after recent Death Strike use
+- The built-in cooldown text shows tenths of seconds when under 1 second
+
+### Sound Alert Conditions
+
+Sound alerts can be configured to play for any of these conditions:
+- **High Runic Power Cap** - When RP is at or above 105
+- **High Runic Power** - When RP is at or above 80
+- **Low Health** - When health is below 50% and RP is at least 40
+
+Sounds only play during combat to prevent unnecessary alerts.
+
+### Critical Health Override
+
+When your health drops below 30% and you have at least 40 Runic Power, the addon will:
+- Override the normal 5-second cooldown (after just 1 second)
+- Recommend using Death Strike immediately
+- Play the Low Health sound alert
+- Show "Critical HP" in debug output
+- Display a configurable text overlay ("SLAM IT" by default) on the Death Strike icon
+
+This helps ensure you can spam Death Strike when in danger, rather than waiting for the full cooldown.
+
+### Debug Mode
+
+Enable debug mode with `/dsh debug` to see detailed information in your chat window:
+- Current health percentage and runic power
+- Which conditions are being met
+- When sounds are being played or suppressed
+- Cooldown status and overrides
 
 ## Requirements
 
 - World of Warcraft Retail
 - Death Knight class
+- Blood specialization
 
 ## Support
 
