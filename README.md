@@ -1,6 +1,6 @@
-# Death Strike Helper
+# DeathStrikeHelper
 
-A World of Warcraft addon that provides real-time feedback for Death Knight's Death Strike ability, helping you optimize your healing and timing.
+WoW addon that provides real-time feedback for Blood Death Knight's Death Strike ability.
 
 ## Features
 
@@ -34,11 +34,11 @@ Screenshots showing the addon in action:
 ## Usage
 
 The addon automatically tracks your Death Strike usage and provides feedback:
-- 💚 Green numbers show effective healing
-- ❌ Red numbers show overhealing
-- ➕/➖ indicators show if the timing was optimal
-- ⭐ Star rating shows overall effectiveness
-- 🔊 Sound alerts play when optimal conditions are met (only during combat)
+- Green numbers show effective healing
+- Red numbers show overhealing
+- +/- indicators show if the timing was optimal
+- Star rating shows overall effectiveness
+- Sound alerts play when optimal conditions are met (only during combat)
 
 ### Commands
 
@@ -82,17 +82,17 @@ The star rating (1-5 stars) is calculated based on:
    - +0 stars: Used with poor timing
 
 Star colors indicate rating:
-- ⭐ Red (Poor)
-- ⭐⭐ Orange (Fair)
-- ⭐⭐⭐ Yellow (Good)
-- ⭐⭐⭐⭐ Light Green (Very Good)
-- ⭐⭐⭐⭐⭐ Green (Excellent)
+- 1 star: Red (Poor)
+- 2 stars: Orange (Fair)
+- 3 stars: Yellow (Good)
+- 4 stars: Light Green (Very Good)
+- 5 stars: Green (Excellent)
 
 ### Timing Recommendations
 
 The addon shows:
-- ➕ Green plus when optimal to use (80+ RP or health below 50% with 40+ RP)
-- ➖ Red minus when conditions aren't ideal
+- Green plus when optimal to use (80+ RP or health below 50% with 40+ RP)
+- Red minus when conditions aren't ideal
 - Standard WoW cooldown timer and swipe animation after recent Death Strike use
 - The built-in cooldown text shows tenths of seconds when under 1 second
 
